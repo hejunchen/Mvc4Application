@@ -220,7 +220,6 @@
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\LocalIIS.pubxml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
-    <Content Include="GridMvc.dll" />
     <Content Include="Scripts\floating-1.12.js" />
     <Content Include="Scripts\gridmvc.min.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
