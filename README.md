@@ -14,56 +14,21 @@ Once the database is attached to your local instance, make sure you copy and run
 
 -------------------------------------------------------------------------------------------
 
-
-IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[v_Employees]'))
-DROP VIEW [dbo].[v_Employees]
-GO
-
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-         create view [dbo].[v_Employees]
-            as
-
-            (
-
-
-            select vEmp.*, tEmp.BirthDate, tEmp.Gender
-            from HumanResources.vEmployee vEmp
-            left join HumanResources.Employee tEmp on vEmp.BusinessEntityID = tEmp.BusinessEntityID
-
-
-            )
-GO
+create view [dbo].[v_Employees] as
+(
+         select vEmp.*, tEmp.BirthDate, tEmp.Gender
+         from HumanResources.vEmployee vEmp
+         left join HumanResources.Employee tEmp on vEmp.BusinessEntityID = tEmp.BusinessEntityID
+)
 
 -------------------------------------------------------------------------------------------
 
-
-IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[v_SalesPersons]'))
-DROP VIEW [dbo].[v_SalesPersons]
-GO
-
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-        create view [dbo].[v_SalesPersons]
-
-as
-
+create view [dbo].[v_SalesPersons] as
 (
-
-select vSales.*, tEmp.BirthDate, tEmp.Gender
-from Sales.vSalesPerson vSales
-left join HumanResources.Employee tEmp on vSales.BusinessEntityID = tEmp.BusinessEntityID
-
+         select vSales.*, tEmp.BirthDate, tEmp.Gender
+         from Sales.vSalesPerson vSales
+         left join HumanResources.Employee tEmp on vSales.BusinessEntityID = tEmp.BusinessEntityID
 )
-GO
 
 -------------------------------------------------------------------------------------------
 
