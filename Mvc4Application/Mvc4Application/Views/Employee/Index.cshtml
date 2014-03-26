@@ -1,0 +1,29 @@
+﻿@using Mvc4DataTransfer
+@model List<EmployeeDTO>
+@{
+    ViewBag.Title = "Employee List";
+}
+<h2>@ViewBag.Title</h2>
+
+<table border="1" cellpadding="10" cellspacing="0" id="tblEmployeeList">
+    <thead>
+        <tr>
+            <td></td>
+            <td>ID</td>
+            <td>Full Name</td>
+            <td><a href="@Url.Content("~/Api/EmployeeApi")" target="_blank">API Data</a></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (EmployeeDTO emp in Model)
+        {
+        <tr>
+            @{ string GenderClass = @emp.Gender + "Small"; }
+            <td><img class="@GenderClass" title="@emp.Gender" /></td>
+            <td>@emp.ID</td>
+            <td>@Html.ActionLink(emp.FullName, "Details/" + emp.ID, null, new { id = "lnk_Emp_" + emp.ID })</td>
+            <td><a href="@Url.Content("~/Api/EmployeeApi/" + @emp.ID)" target="_blank">@Url.Content("~/Api/EmployeeApi/" + @emp.ID)</a></td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,15 @@
+﻿@using Mvc4DataTransfer
+@model EmployeeDTO
+@{
+    ViewBag.Title = "Employee Details";
+}
+
+
+@{
+    //render the employee details section
+    Html.RenderPartial("~/Views/Shared/_EmployeeProfile.cshtml", @Model);    
+}
+
+
+<br />
+

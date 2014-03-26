@@ -1,0 +1,115 @@
+﻿@using Mvc4DataTransfer
+@model List<SalesOrderDTO>
+
+<br /><h3>Orders (count: @Model.Count)</h3><br />
+
+<div id="divOrders">
+
+    <table border="1" cellpadding="6" cellspacing="2" id="tblOrderList">
+        <thead>
+            <tr>
+                <td class="Center">Row #</td>
+                <td class="Left">Order ID</td>
+                <td class="Center">Order Date</td>
+                <td class="Center">Ship Date</td>
+                <td class="Center">Due Date</td>
+                <td class="Right">Subtotal</td>
+                <td class="Right">Freight</td>
+                <td class="Right">Tax Amount</td>
+                <td class="Right">Total Due</td>
+                <td class="Center">Details</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int index = 1;
+                foreach (SalesOrderDTO order in Model)
+                {
+                    <tr id="trOrderHeader_@order.SalesOrderID">
+                        <td class="Center">@index</td>
+                        <td class="Left">@order.SalesOrderID</td>
+                        <td class="Center">@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                        <td class="Center">@order.ShipDate.ToString("yyyy-MM-dd")</td>
+                        <td class="Center">@order.DueDate.ToString("yyyy-MM-dd")</td>
+                        <td class="Right">@string.Format("{0:C2}", order.SubTotal)</td>
+                        <td class="Right">@string.Format("{0:C2}", order.Freight)</td>
+                        <td class="Right">@string.Format("{0:C2}", order.TaxAmt)</td>
+                        <td class="Right">@string.Format("{0:C2}", order.TotalDue)</td>
+                        <td class="Center"><a href="#" id="trigger_@order.SalesOrderID" onclick="GetDetails(@order.SalesOrderID); return false;"><img class="Arrow ArrowDown" alt="" /></a></td>
+                        @*<td class="Center"><button id="trigger_@order.SalesOrderID" onclick="GetDetails(@order.SalesOrderID);"><img class="Arrow ArrowDown" alt="" /></button></td>*@
+                    </tr>
+                    <tr id="trOrderDetails_@order.SalesOrderID" style="display: none;" isLoaded="0">
+                        <td colspan="10" class="Center">
+                            <div align="center" id="div_trOrderDetails_@order.SalesOrderID" />
+                        </td>
+                    </tr>
+                    index++;
+                 }
+               }
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="10" class="Center">
+                        <a href="#tblOrderList">Top of table</a>
+                    </td>
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+    </div>
+
+
+    <script type="text/javascript">
+
+        function GetDetails(orderId) {
+
+            var controlName = "#trigger_" + orderId;
+            var headerName = "#trOrderHeader_" + orderId;
+            var detailsName = "#trOrderDetails_" + orderId;
+            var divName = "#div_trOrderDetails_" + orderId;
+
+            if (!$(detailsName).is(':visible')) {
+
+                //going to show
+
+                //use ajax to retrieve ONE specific Order's Details
+                if ($(detailsName).attr('isLoaded') == 0)
+                {
+                    $.ajax({
+                        url: '@Url.Action("Details", "Order")',
+                        data: { id: orderId },
+                        success: function (result) {
+                            $(divName).html(result);
+                            $(detailsName).attr('isLoaded', 1);
+                            //alert(detailsName + ' section has been populated.');
+                        },
+                        error: function (result) {
+                            $(divName).html("Sorry, it appears to be some errors occurred when loading this order's details.");
+                        }
+                    });
+                }
+
+                $(controlName + ' img').removeClass("ArrowDown");
+                $(controlName + ' img').addClass("ArrowUp");
+            }
+            else
+            {
+
+                $(controlName + ' img').removeClass("ArrowUp");
+                $(controlName + ' img').addClass("ArrowDown");
+
+            }
+
+            //show or hide the Details Row
+            $(detailsName).toggle('fast');
+
+            //toggle the style of the Header and Details row
+            $(detailsName).toggleClass('selectedDetails');
+            $(headerName).toggleClass('selectedDetails');
+
+        }
+
+    </script>

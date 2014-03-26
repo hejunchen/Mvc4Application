@@ -1,0 +1,34 @@
+﻿@using Mvc4DataTransfer
+@model List<SalesPersonDTO>
+@{
+    ViewBag.Title = "Sales Persons List";
+}
+<h2>@ViewBag.Title</h2>
+
+<table border="1" cellpadding="10" cellspacing="0" id="tblSalesPersonList">
+    <thead>
+        <tr>
+            <td></td>
+            <td>ID</td>
+            <td>Full Name</td>
+            <td>View</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (EmployeeDTO emp in Model)
+        {
+            <tr>
+                @{ string GenderClass = emp.Gender + "Small"; }
+                <td><img class="@GenderClass" title="@emp.Gender" /></td>
+                <td>@emp.ID</td>
+                <td>@Html.ActionLink(emp.FullName, "Details/" + emp.ID)</td>
+                <td><a href="@Url.Content("~/SalesPerson/Details/" + @emp.ID)" target="_blank"><img class="PopUpWindow" alt="" title="Click to open the details in new window" /></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $('#tblSalesPersonList tr td:first-child').css('text-align', 'center');
+    $('#tblSalesPersonList tr td:nth-child(4)').css('text-align', 'center');
+</script>

@@ -1,0 +1,60 @@
+﻿@using Mvc4DataTransfer
+@model EmployeeDTO
+
+<h2>@ViewBag.Title &nbsp; (ID = @Model.ID)</h2>&nbsp;&nbsp;
+<button id="btnGoBack" onclick="window.history.back();">Go Back</button>
+<hr /><br />
+
+<img class="@Model.Gender" id="imgGender" />
+<h3>@Model.FullName</h3>
+
+<script>
+    if (window.history.length == 1) $('#btnGoBack').hide();
+    $('#imgGender').click(function () {
+        $('#divEmpProfileSection').toggle();
+    });
+</script>
+
+<br />
+<div id="divEmpProfileSection">
+    <section style="display: inline-block">
+        @{
+            GoogleMapDTO map = new GoogleMapDTO();
+            map.MapControllerID = "MapEmp" + @Model.ID;
+            map.Width = 400;
+            map.Height = 250;
+            map.Address = Model.FullAddress;
+            map.Zoom = 15;
+            Html.RenderPartial("_GoogleMap", map);
+        }
+    </section>
+    <section style="display: inline-block">
+        <table border="1" cellpadding="10" cellspacing="0" id="tblEmpDetails">
+            <tr>
+                <td>Job Title:</td>
+                <td>@Model.JobTitle</td>
+            </tr>
+            <tr>
+                <td>Phone Number:</td>
+                <td>@string.Format("({0}) {1}", Model.PhoneNumberType, Model.PhoneNumber)</td>
+            </tr>
+            <tr>
+                <td>Email Address:</td>
+                <td><img class="Email" title="Click to send email" />&nbsp;<a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a></td>
+            </tr>
+            <tr>
+                <td>Birth Date:</td>
+                <td><input type="date" value="@Model.BirthDate.ToString("yyyy-MM-dd")" disabled="disabled" />&nbsp;(Age: @Model.Age)</td>
+            </tr>
+            <tr>
+                <td>Email Promotion?</td>
+                @*<td>@Html.CheckBox("EmailPromotion_ID_" + @Model.ID, @Model.EmailPromotion, new { disabled = "disabled" })</td>*@
+                <td><div class="Boolean @(Model.EmailPromotion.ToString())" title="@(Model.EmailPromotion.ToString())"></div></td>
+            </tr>
+            <tr>
+                <td>Mailling Address:</td>
+                <td>@Model.FullAddress</td>
+            </tr>
+        </table>
+    </section>
+</div>

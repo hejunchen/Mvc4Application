@@ -1,0 +1,40 @@
+﻿@using Mvc4DataTransfer
+@model GoogleMapDTO
+
+<div id="@Model.MapControllerID" style="border: solid"></div>
+
+@*<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCjbZ2fgm7XrYqCmJqn4vkSE-s3b5t2kUw&sensor=false"></script>*@
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?&sensor=false"></script>
+<script language="javascript" type="text/javascript">
+        
+    function FindLocaiton() {
+        $('#@Model.MapControllerID').css('width', '@Model.Width');
+        $('#@Model.MapControllerID').css('height', '@Model.Height');
+        var geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(0, 0);
+        var myOptions =
+        {
+            zoom: @Model.Zoom,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+            //disableDefaultUI: true
+        };
+        var map = new google.maps.Map(document.getElementById('@Model.MapControllerID'), myOptions);
+        geocoder.geocode({ 'address': '@Model.Address' }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            }
+            else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        });
+    }
+
+    //drawing map now...
+    FindLocaiton();
+ 
+</script>

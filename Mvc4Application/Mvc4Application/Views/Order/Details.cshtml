@@ -1,0 +1,41 @@
+﻿@using Mvc4DataTransfer
+@model SalesOrderDTO
+
+@{
+    Layout = null;
+}
+
+<h4>Order Details Count: @Model.OrderDetails.Count</h4>
+<table border="1" cellpadding="10" cellspacing="1">
+    <thead>
+        <tr>
+            <td class="Left">Line ID</td>
+            <td class="Left">Product Number</td>
+            <td class="Left">Product Name</td>
+            <td class="Right">Unit Price</td>
+            <td class="Center">Quantity</td>
+            <td class="Right">Total</td>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (SalesOrderDetailDTO od in @Model.OrderDetails)
+    {
+        <tr>
+            <td class="Left">@od.SalesOrderDetailID</td>
+            <td class="Left">@od.ProductNumber</td>
+            <td class="Left">@od.ProductName</td>
+            <td class="Right">@string.Format("{0:C2}", od.UnitPrice)</td>
+            <td class="Center">@od.OrderQty</td>
+            <td class="Right">@string.Format("{0:C2}", od.Total)</td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" class="Right">Subtotal:</td>
+            <td class="Right">@string.Format("{0:C2}", @Model.OrderDetails.Sum(x => x.Total))</td>
+        </tr>
+    </tfoot>
+</table>
+
+<br /><br />

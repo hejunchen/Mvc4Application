@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    <script src="~/Scripts/jquery-2.1.0.min.js"></script>
+    <script src="~/Scripts/jquery.blockUI.js"></script>
+    <script src="~/Scripts/modernizr-2.7.2.js"></script>
+    <script src="~/Scripts/floating-1.12.js"></script>
+    <script src="~/Scripts/gridmvc.min.js"></script>
+
+    <link href="~/Content/Web.css" rel="stylesheet" />
+    <link href="~/Content/Gridmvc.css" rel="stylesheet" />
+
+    @*<link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/averia" type="text/css" />
+    <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/pecita" type="text/css" />
+    <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/gnutypewriter" type="text/css" />
+    <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/gauge" type="text/css" />
+    <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/sansus-webissimo" type="text/css" />
+    <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/pahlavi" type="text/css" />
+    <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/gamaliel" type="text/css" />*@
+
+
+    @*<link href="//vjs.zencdn.net/4.2/video-js.css" rel="stylesheet">
+        <script src="//vjs.zencdn.net/4.2/video.js"></script>*@
+
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+
+    <meta name="description" content="MVC4 practice page - my own development" />
+
+</head>
+<body>
+
+
+
+    @*write a block of html code to show ajax loading animation, but hide it in page. Called by $BlockUI*@
+    <div style="display: none;"><img id="imgLoading" src='@Url.Content("~/Content/images/ajaxLoader.gif")' /></div>
+
+
+    <div align="center">
+        <header>
+            <div id="topLinks">
+                @Html.Partial("_HelperLinks")
+            </div>
+        </header>
+
+        <div id="body">
+            @RenderBody()
+        </div>
+
+        <footer id="footer">
+            @Html.Partial("_FooterPage")
+        </footer>
+
+    </div>
+
+
+
+    @*@Html.Partial("_FloatingMenu")*@
+
+
+
+    @*JavaScript Area*@
+    @*-----------------------------------------*@
+    <script type="text/javascript">
+
+        function PleaseWait() {
+
+            var msgWidth = '100';
+            var msgHeight = "35";
+
+            $.blockUI({
+                css: {
+                    display: 'table-cell',
+                    verticalalign: 'middle',
+                    textalign: 'center',
+                    top: ($(window).height() - msgHeight) / 2 + 'px',
+                    left: ($(window).width() - msgWidth) / 2 + 'px',
+                    width: msgWidth + 'px',
+                    height: msgHeight + 'px',
+                    border: 'none',
+                    padding: '10px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+        }
+        function PleaseUnwait() {
+            $.unblockUI();
+        }
+
+        $.blockUI.defaults.message = $('#imgLoading');
+
+        function GoToPageTop() {
+            $('html, body').animate({ scrollTop: 0 }, 'slow');
+            return false;
+        }
+
+        $('#tblLinks a').click(function () {
+            PleaseWait();
+        });
+
+        //$(document).ajaxStart(PleaseWait()).ajaxStop(PleaseUnwait());
+
+
+        $('body div[id="body"] table tbody tr').hover(function () {
+            //$(this).css("background", "#FFFFCC");
+            $(this).addClass("TrHoverOver");
+        },
+        function () {
+            $(this).removeClass("TrHoverOver");
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>

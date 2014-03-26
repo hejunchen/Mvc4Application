@@ -1,0 +1,23 @@
+﻿@using Mvc4DataTransfer
+@model SalesPersonDTO
+
+@{
+    ViewBag.Title = "Sales Person Details";
+}
+
+
+@{
+    //render the salesperson details section - salesperson is a subclass of employee class
+    Html.RenderPartial("~/Views/Shared/_EmployeeProfile.cshtml", @Model);
+}
+
+<br />
+<hr />
+
+@{
+    //render the list of orders placed by this salesperson
+    Html.RenderPartial("~/Views/Order/Index.cshtml", @Model.SalesOrders);
+}
+    
+
+

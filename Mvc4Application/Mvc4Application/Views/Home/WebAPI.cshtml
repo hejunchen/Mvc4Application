@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "WebAPI";
+}
+
+<h2>WebAPI</h2>
+
+<table id="tblEmployees" border="2" cellpadding="10" cellspacing="4">
+    <thead>
+        @*table header goes here*@
+    </thead>
+    <tbody>
+        @*employees' data will be inserted here*@
+    </tbody>
+    <tfoot>
+        @*emloyee collection count will be here*@
+    </tfoot>
+</table>
+
+<br />
+
+@*This paragrah line will disappear after the data is loaded.*@
+<div id="divLoading" class="Center">
+    <h3>Loading data...</h3>
+</div>
+
+@*Below is the javascript used for this page*@
+<script type="text/javascript">
+
+    var head = "<tr><td>ID</td><td>Full Name</td><td class='Center'>Age</td><td class='Center'>Gender</td><td>Email</td></tr>";
+    $('#tblEmployees').find('thead').append(head);
+    
+        $.ajax({
+        url: '@Url.Content("~")' + 'api/EmployeeApi',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+
+            var body = $('#tblEmployees').find('tbody');
+
+            $.each(data, function (key, item) {
+                //add a row for each employee
+                var rowEmpID = "<td>" + item.ID + "</td>";
+                var rowEmpFullName = "<td>" + item.FullName + "</td>";
+                var rowEmpBirthDate = "<td class='Center'>" + item.Age + "</td>";
+                var rowEmpGender = "<td><img class='" + item.Gender + "Small' title='" + item.Gender + "'></img></td>";
+                var rowEmpEmail = "<td>" + item.EmailAddress + "</td>";
+                var row = rowEmpID + rowEmpFullName + rowEmpBirthDate + rowEmpGender + rowEmpEmail;
+                row = "<tr>" + row + "</tr>";
+                $(body).append(row);
+            });
+
+            var footer = "<tr><td colspan='5' class='Center'>Total Employee Count: " + data.length + "</td></tr>"
+            $('#tblEmployees').find('tfoot').append(footer);
+
+            $('#divLoading').hide();
+
+        },
+        error: function (x, y, z) {
+            alert(x + '\n' + y + '\n' + z);
+        }
+    });
+
+
+</script>
+

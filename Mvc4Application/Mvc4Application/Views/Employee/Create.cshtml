@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<div style="text-align: left">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+
+    <fieldset>
+        <legend>EmployeeDTO</legend>
+
+        <div class="editor-label">
+            First Name
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("FirstName", "", new { required = "required" })
+        </div>
+
+        <div class="editor-label">
+            Middle Name
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("MiddleName")
+        </div>
+
+        <div class="editor-label">
+            Last Name
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("LastName", "", new { required = "true" })
+        </div>
+
+        <div class="editor-label">
+            BirthDate
+        </div>
+        <div class="editor-field">
+            <input type="date" name="BirthDate" required = "required" />
+        </div>
+
+        <div class="editor-label">
+            Gender
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Gender", new List<SelectListItem>
+           {
+               new SelectListItem{ Text="Male", Value="Male" },
+               new SelectListItem{ Text="Female", Value="Female" }
+           }, "Select", new { required = "requred" })
+        </div>
+
+        @*<div class="editor-label">
+                @Html.LabelFor(model => model.JobTitle)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.JobTitle)
+                @Html.ValidationMessageFor(model => model.JobTitle)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PhoneNumber)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PhoneNumber)
+                @Html.ValidationMessageFor(model => model.PhoneNumber)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PhoneNumberType)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PhoneNumberType)
+                @Html.ValidationMessageFor(model => model.PhoneNumberType)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.EmailAddress)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.EmailAddress)
+                @Html.ValidationMessageFor(model => model.EmailAddress)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.EmailPromotion)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.EmailPromotion)
+                @Html.ValidationMessageFor(model => model.EmailPromotion)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.AddressLine1)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.AddressLine1)
+                @Html.ValidationMessageFor(model => model.AddressLine1)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.AddressLine2)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.AddressLine2)
+                @Html.ValidationMessageFor(model => model.AddressLine2)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.City)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.City)
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StateProvinceName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StateProvinceName)
+                @Html.ValidationMessageFor(model => model.StateProvinceName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PostalCode)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PostalCode)
+                @Html.ValidationMessageFor(model => model.PostalCode)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CountryRegionName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CountryRegionName)
+                @Html.ValidationMessageFor(model => model.CountryRegionName)
+            </div>*@
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

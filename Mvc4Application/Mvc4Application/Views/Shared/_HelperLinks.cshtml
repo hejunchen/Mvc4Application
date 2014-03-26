@@ -1,0 +1,19 @@
+﻿<div>
+    <br />
+    <section>
+        <label>Timestamp: @DateTime.Now.ToString()</label>
+    </section>
+    <section>
+        <table id="tblLinks" cellpadding="10" cellspacing="4">
+            <tr>
+                <td>@Html.ActionLink("Home Page", "Index", "Home")</td>
+                <td>@Html.ActionLink("Employee List", "Index", "Employee")</td>
+                <td>@Html.ActionLink("Sales Person List", "Index", "SalesPerson")</td>
+                <td>@Html.ActionLink("WebAPI", "WebAPI", "Home")</td>
+                <td>@Html.ActionLink("Sample Video", "Video", "Home")</td>
+                <td>@Html.ActionLink("About", "About", "Home")</td>
+            </tr>
+        </table>
+    </section>
+
+</div>
