@@ -18,15 +18,19 @@
 <br />
 <div id="divEmpProfileSection">
     <section style="display: inline-block">
-        @{
-            GoogleMapDTO map = new GoogleMapDTO();
-            map.MapControllerID = "MapEmp" + @Model.ID;
-            map.Width = 400;
-            map.Height = 250;
-            map.Address = Model.FullAddress;
-            map.Zoom = 15;
-            Html.RenderPartial("_GoogleMap", map);
-        }
+
+        @Microsoft.Web.Helpers.Maps.GetGoogleHtml(Model.FullAddress, width: "400", height: "250")
+
+        @*@{
+                GoogleMapDTO map = new GoogleMapDTO();
+                map.MapControllerID = "MapEmp_" + @Model.ID;
+                map.Width = 400;
+                map.Height = 250;
+                map.Address = Model.FullAddress;
+                map.Zoom = 15;
+                Html.RenderPartial("_GoogleMap", map);
+            }*@
+
     </section>
     <section style="display: inline-block">
         <table border="1" cellpadding="10" cellspacing="0" id="tblEmpDetails">
